@@ -137,9 +137,8 @@ function Navbar() {
               <li>
                 <Link
                   to="/"
-                  className={`block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 ${
-                    path === '/' ? 'text-blue-700' : 'text-black '
-                  }`}
+                  className={`block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 ${path === '/' ? 'text-blue-700' : 'text-black '
+                    }`}
                   aria-current="page"
                 >
                   Home
@@ -148,9 +147,8 @@ function Navbar() {
               <li>
                 <Link
                   to="/product"
-                  className={`block py-2 pl-3 pr-4 text-black rounded md:bg-transparent md:p-0 ${
-                    path === '/product' ? 'text-blue-700' : 'text-black '
-                  }`}
+                  className={`block py-2 pl-3 pr-4 text-black rounded md:bg-transparent md:p-0 ${path === '/product' ? 'text-blue-700' : 'text-black '
+                    }`}
                 >
                   Demo For Nike.com
                 </Link>
