@@ -10,6 +10,7 @@ import avatar_right from '../../assets/avatar_right.jpg';
 import SuggestItem from './components/SuggestItem';
 import UseAnimations from 'react-useanimations';
 import loading from 'react-useanimations/lib/loading';
+import logo from '../../assets/logo.jpg';
 
 type Props = {
   open: boolean;
@@ -21,7 +22,7 @@ function ChatboxModal(props: Props) {
   const [suggestion, setSuggestion] = useState<any[]>([]);
   const [messages, setMessages] = useState<any[]>([
     {
-      message: "Hello, I'm FindEasy! Tell me the product you like!",
+      message: "👋Hello, I'm Yonder Search! Tell me the product you like!",
       sentTime: 'just now',
       sender: 'ChatGPT',
       suggestion: null,
@@ -144,8 +145,12 @@ function ChatboxModal(props: Props) {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full flex flex-col gap-2 max-w-screen-lg transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all bg-slate-50">
-                <Dialog.Title as="h3" className="mb-2 text-lg text-gray-900">
-                  FindEasy GPT
+                <Dialog.Title
+                  as="h3"
+                  className="mb-2 font-bold text-lg text-gray-900 flex items-center gap-2"
+                >
+                  <img className="w-10 rounded-full" src={logo} alt="logo" />
+                  Yonder Search
                 </Dialog.Title>
                 {/*<div className="mt-2 flex flex-col gap-1 border border-gray-200 bg-gray-100 rounded-xl p-2">*/}
                 {/*  <h2 className="text-gray-800">AI Notes</h2>*/}
@@ -272,7 +277,8 @@ function ChatboxModal(props: Props) {
                   )}
                 </form>
                 <h3 className="flex ml-auto text-sm text-gray-500">
-                  Power by Hackathon AI
+                  Power by &nbsp;
+                  <p className="font-medium text-gray-700">Hackathon AI</p>
                 </h3>
               </Dialog.Panel>
             </Transition.Child>

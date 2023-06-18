@@ -9,7 +9,7 @@ function Home() {
     <main className="block">
       <Navbar />
       <Hero />
-      <Feature />
+      {/*<Feature />*/}
       <Team />
       <Footer />
     </main>

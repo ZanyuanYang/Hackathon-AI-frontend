@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ChatboxModal from '../ChatboxModal';
 import { Link } from 'react-router-dom';
+import logo from '../../assets/logo.jpg';
 
 function Navbar() {
   let path = window.location.pathname;
@@ -22,16 +23,16 @@ function Navbar() {
       ) : null}
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <a href="https://flowbite.com/" className="flex items-center">
+          <Link to="/" className="flex items-center">
             <img
-              src="https://flowbite.com/docs/images/logo.svg"
-              className="h-8 mr-3"
+              src={logo}
+              className="h-12 mr-3 rounded-full"
               alt="Flowbite Logo"
             />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-              Yonder AI
+              Yonder Search
             </span>
-          </a>
+          </Link>
           <div className="flex md:order-2">
             <button
               type="button"

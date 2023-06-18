@@ -19,7 +19,7 @@ export default function SuggestItem(props: SuggestItemProps) {
             component="img"
             height="40"
             image={item.metadata.imageLink}
-            alt="green iguana"
+            alt="img"
             sx={{ height: 200 }}
           />
           <CardContent>
@@ -36,9 +36,9 @@ export default function SuggestItem(props: SuggestItemProps) {
             <Typography gutterBottom variant="h5" component="div">
               {item.productPrice}
             </Typography>
-            <Typography gutterBottom variant="h5" component="div">
-              {item.productLink}
-            </Typography>
+            {/*<Typography gutterBottom variant="h5" component="div">*/}
+            {/*  {item.productLink}*/}
+            {/*</Typography>*/}
           </CardContent>
         </CardActionArea>
       </Card>
