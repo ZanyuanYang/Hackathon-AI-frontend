@@ -29,7 +29,7 @@ function Navbar() {
               alt="Flowbite Logo"
             />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-              Yonder AI
+              Yonder Search
             </span>
           </a>
           <div className="flex md:order-2">
@@ -136,9 +136,8 @@ function Navbar() {
               <li>
                 <Link
                   to="/"
-                  className={`block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 ${
-                    path === '/' ? 'text-blue-700' : 'text-black '
-                  }`}
+                  className={`block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 ${path === '/' ? 'text-blue-700' : 'text-black '
+                    }`}
                   aria-current="page"
                 >
                   Home
@@ -147,9 +146,8 @@ function Navbar() {
               <li>
                 <Link
                   to="/product"
-                  className={`block py-2 pl-3 pr-4 text-black rounded md:bg-transparent md:p-0 ${
-                    path === '/product' ? 'text-blue-700' : 'text-black '
-                  }`}
+                  className={`block py-2 pl-3 pr-4 text-black rounded md:bg-transparent md:p-0 ${path === '/product' ? 'text-blue-700' : 'text-black '
+                    }`}
                 >
                   Demo For Nike.com
                 </Link>
