@@ -3,7 +3,7 @@ import ChatboxModal from '../ChatboxModal';
 
 function Navbar() {
   // chatbox modal
-  const [chatboxModalOpen, setChatboxModalOpen] = useState<boolean>(true);
+  const [chatboxModalOpen, setChatboxModalOpen] = useState<boolean>(false);
 
   const handleOnCloseModal = () => {
     setChatboxModalOpen(false);

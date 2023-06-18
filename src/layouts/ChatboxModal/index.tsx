@@ -1,17 +1,15 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {
-  Avatar,
-  ChatContainer,
-  Message,
-  MessageList,
-  TypingIndicator,
-} from '@chatscope/chat-ui-kit-react';
+import axios from 'axios';
+import avatar from '../../assets/avatar.png';
+import avatar_right from '../../assets/avatar_right.jpg';
 import SuggestItem from './components/SuggestItem';
+import UseAnimations from 'react-useanimations';
+import loading from 'react-useanimations/lib/loading';
 
 type Props = {
   open: boolean;
@@ -20,13 +18,16 @@ type Props = {
 
 function ChatboxModal(props: Props) {
   const { open, onClose } = props;
+  const [suggestion, setSuggestion] = useState<any[]>([]);
   const [messages, setMessages] = useState<any[]>([
     {
-      message: "Hello, I'm ChatGPT! Ask me anything!",
+      message: "Hello, I'm FindEasy! Tell me the product you like!",
       sentTime: 'just now',
       sender: 'ChatGPT',
+      suggestion: null,
     },
   ]);
+
   const [userMessage, setUserMessage] = useState<string>('');
   const systemMessage = {
     //  Explain things like you're talking to a software professional with 5 years of experience.
@@ -35,7 +36,7 @@ function ChatboxModal(props: Props) {
       "Explain things like you're talking to a software professional with 2 years of experience.",
   };
 
-  const [isTyping, setIsTyping] = useState(false);
+  const [isTyping, setIsTyping] = useState<boolean>(false);
 
   const handleSendOnChange = (message: any) => {
     setUserMessage(message);
@@ -68,45 +69,37 @@ function ChatboxModal(props: Props) {
       ],
     };
 
+    const response = await axios.post(
+      'http://localhost:8080/api/product/pinecone',
+      {
+        input: userMessage,
+      }
+    );
+
     setMessages([
       ...chatMessages,
       {
-        message: 'chatgpt answer',
-        sender: 'assistant',
+        message: response.data.data.data.text,
+        sender: 'ChatGPT',
+        suggestion: response.data.data.data.sourceDocuments || null,
       },
     ]);
-    setIsTyping(false);
 
-    // await fetch('https://api.openai.com/v1/chat/completions', {
-    //   method: 'POST',
-    //   headers: {
-    //     Authorization: 'Bearer ' + API_KEY,
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(apiRequestBody),
-    // })
-    //   .then((data) => {
-    //     return data.json();
-    //   })
-    //   .then((data) => {
-    //     console.log(data);
-    //     setMessages([
-    //       ...chatMessages,
-    //       {
-    //         message: data.choices[0].message.content,
-    //         sender: 'ChatGPT',
-    //       },
-    //     ]);
-    //     setIsTyping(false);
-    //   });
+    setSuggestion((prevSuggestions) => [
+      ...prevSuggestions,
+      [...response.data.data.data.sourceDocuments],
+    ]);
+    setIsTyping(false);
   };
 
   const handleSend = async (e: any) => {
+    setIsTyping(true);
     e.preventDefault();
     const newMessage = {
       message: userMessage,
       direction: 'outgoing',
       sender: 'user',
+      suggestion: null,
     };
 
     const newMessages = [...messages, newMessage];
@@ -115,9 +108,14 @@ function ChatboxModal(props: Props) {
     setUserMessage('');
     // Initial system message to determine ChatGPT functionality
     // How it responds, how it talks, etc.
-    setIsTyping(true);
     await processMessageToChatGPT(newMessages);
   };
+
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -145,7 +143,7 @@ function ChatboxModal(props: Props) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full flex flex-col gap-2 max-w-screen-lg transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full flex flex-col gap-2 max-w-screen-lg transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all bg-slate-50">
                 <Dialog.Title as="h3" className="mb-2 text-lg text-gray-900">
                   FindEasy GPT
                 </Dialog.Title>
@@ -161,27 +159,68 @@ function ChatboxModal(props: Props) {
                   </p>
                 </div>
 
-                <div className="border border-slate-400 rounded-2xl h-[30em] overflow-auto">
-                  <div className="p-4">
-                    <ChatContainer>
-                      <MessageList
-                        scrollBehavior="smooth"
-                        typingIndicator={
-                          isTyping ? (
-                            <TypingIndicator content="ChatGPT is typing" />
-                          ) : null
-                        }
-                      >
-                        {messages.map((message, i) => {
-                          return <Message key={i} model={message} />;
-                        })}
-                      </MessageList>
-                    </ChatContainer>
-                    <SuggestItem />
+                <div className="border border-slate-400 rounded-2xl h-[30em] overflow-auto p-4">
+                  <div>
+                    {messages.map((message) => {
+                      return (
+                        <div key={message.message}>
+                          {message.sender === 'ChatGPT' ||
+                          message.sender === 'assistant' ? (
+                            <div className="flex gap-2">
+                              <img
+                                className="rounded-full w-12 h-12"
+                                src={avatar}
+                                alt="bot"
+                              />
+                              <div>
+                                <p className="text-gray-900 font-semibold tracking-wide">
+                                  FindEasyBot
+                                </p>
+                                <div className="__chat_box bg-white p-3 inline-block">
+                                  {message.message}
+                                </div>
+                                <div className="grid grid-cols-3 gap-4 mb-2 mt-2 animate__animated animate__fadeInDown">
+                                  {message.suggestion &&
+                                    message.suggestion.map((item: any) => (
+                                      <SuggestItem key={item} item={item} />
+                                    ))}
+                                </div>
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="flex gap-2">
+                              <div className="ml-auto flex flex-col">
+                                <p className="text-gray-900 font-semibold tracking-wide ml-auto">
+                                  You
+                                </p>
+                                <div className="__chat_box bg-sky-300 p-3">
+                                  {message.message}
+                                </div>
+                              </div>
+                              <img
+                                className="rounded-full w-12 h-12"
+                                src={avatar_right}
+                                alt="user"
+                              />
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
+                  {isTyping && (
+                    <div className="text-black mt-2 flex gap-2">
+                      <UseAnimations animation={loading} />
+                      <div>Thinking...</div>
+                    </div>
+                  )}
+                  <div ref={messagesEndRef} />
                 </div>
 
-                <form className="flex items-center" onSubmit={handleSend}>
+                <form
+                  className="flex items-center"
+                  onSubmit={(e) => handleSend(e)}
+                >
                   <label htmlFor="simple-search" className="sr-only">
                     Chat here...
                   </label>
@@ -198,7 +237,7 @@ function ChatboxModal(props: Props) {
                           fill-rule="evenodd"
                           d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
                           clip-rule="evenodd"
-                        ></path>
+                        />
                       </svg>
                     </div>
                     <input
@@ -207,18 +246,30 @@ function ChatboxModal(props: Props) {
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="Chat here..."
                       value={userMessage}
+                      autoComplete="off"
                       required
                       onChange={(e: any) => handleSendOnChange(e.target.value)}
                     />
                   </div>
-                  <button
-                    type="submit"
-                    className="p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    onClick={handleSend}
-                  >
-                    <SendRoundedIcon />
-                    <span className="sr-only">Search</span>
-                  </button>
+                  {isTyping ? (
+                    <button
+                      type="submit"
+                      className="p-2.5 ml-2 text-sm font-medium text-white bg-gray-600 rounded-lg border border-blue-700 "
+                      disabled
+                    >
+                      <SendRoundedIcon />
+                      <span className="sr-only">Search</span>
+                    </button>
+                  ) : (
+                    <button
+                      type="submit"
+                      className="p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      onClick={(e) => handleSend(e)}
+                    >
+                      <SendRoundedIcon />
+                      <span className="sr-only">Search</span>
+                    </button>
+                  )}
                 </form>
               </Dialog.Panel>
             </Transition.Child>

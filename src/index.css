@@ -148,6 +148,18 @@ a {
   border-right: 2px dashed var(--color-background-purple-dark);
 }
 
+.line-clamp{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+}
+
+.__chat_box{
+  border-radius: 10px 20px 30px 40px/30px;
+}
+
 /*==================== MEDIA QUERIES ====================*/
 /* For small devices */
 @media screen and (max-width: 350px) {

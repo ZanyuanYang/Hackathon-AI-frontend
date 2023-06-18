@@ -5,23 +5,38 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 
-export default function SuggestItem() {
+type SuggestItemProps = {
+  item: any;
+};
+
+export default function SuggestItem(props: SuggestItemProps) {
+  const { item } = props;
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
         <CardMedia
           component="img"
-          height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
+          height="40"
+          image={item.metadata.imageLink}
           alt="green iguana"
+          sx={{ height: 200 }}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Lizard
+            {item.name}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            className="line-clamp"
+          >
+            {item.metadata.productDescription}
+          </Typography>
+          <Typography gutterBottom variant="h5" component="div">
+            {item.productPrice}
+          </Typography>
+          <Typography gutterBottom variant="h5" component="div">
+            {item.productLink}
           </Typography>
         </CardContent>
       </CardActionArea>
