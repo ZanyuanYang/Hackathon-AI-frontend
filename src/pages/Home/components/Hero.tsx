@@ -31,7 +31,7 @@ function Hero() {
       <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-32 lg:flex lg:px-8 lg:py-40">
         <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl lg:flex-shrink-0 lg:pt-8">
           <h1 className="mt-10 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-            Yonder: Smart, Scalable E-commerce Product Recommendations
+            Conversational Product Recommendations for E-Commerce
           </h1>
           <p className="mt-6 text-lg leading-8 text-gray-600">
             Yonder Search provides a cost-effective, scalable solution for

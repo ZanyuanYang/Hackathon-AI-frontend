@@ -22,7 +22,8 @@ function ChatboxModal(props: Props) {
   const [suggestion, setSuggestion] = useState<any[]>([]);
   const [messages, setMessages] = useState<any[]>([
     {
-      message: "👋Hello, I'm Yonder Search! Tell me the product you like!",
+      message:
+        "👋Hello, I'll be your personal assistant for your visit today! What are you looking for?",
       sentTime: 'just now',
       sender: 'ChatGPT',
       suggestion: null,
@@ -174,12 +175,12 @@ function ChatboxModal(props: Props) {
                             <div className="flex gap-2">
                               <img
                                 className="rounded-full w-12 h-12"
-                                src={avatar}
+                                src="https://static.vecteezy.com/system/resources/previews/010/994/232/original/nike-logo-black-clothes-design-icon-abstract-football-illustration-with-white-background-free-vector.jpg"
                                 alt="bot"
                               />
                               <div>
                                 <p className="text-gray-900 font-semibold tracking-wide">
-                                  FindEasyBot
+                                  Nike assistant
                                 </p>
                                 <div className="__chat_box bg-white p-3 inline-block">
                                   {message.message}
