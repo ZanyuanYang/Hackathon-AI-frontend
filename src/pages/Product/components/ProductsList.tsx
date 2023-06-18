@@ -83,7 +83,7 @@ function ProductsList() {
 
   const getProducts = async () => {
     const response = await axios.get(
-      'https://hackathon-ai-backend.vercel.app/api/product'
+      'https://hackathon-ai-backend.vercel.app/api/product/'
     );
     console.log(response.data.data.data);
     setProductList(response.data.data.data);

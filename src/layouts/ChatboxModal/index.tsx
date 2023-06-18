@@ -72,7 +72,7 @@ function ChatboxModal(props: Props) {
     };
 
     const response = await axios.post(
-      'https://hackathon-ai-backend.vercel.app/api/product/pinecone',
+      'https://hackathon-ai-backend.vercel.app/api/product/pinecone/',
       {
         input: userMessage,
       }
