@@ -147,17 +147,17 @@ function ChatboxModal(props: Props) {
                 <Dialog.Title as="h3" className="mb-2 text-lg text-gray-900">
                   FindEasy GPT
                 </Dialog.Title>
-                <div className="mt-2 flex flex-col gap-1 border border-gray-200 bg-gray-100 rounded-xl p-2">
-                  <h2 className="text-gray-800">AI Notes</h2>
-                  <p className="text-xs max-w-md space-y-1 text-gray-500 list-inside break-all">
-                    1. What is the best way to find a
-                    job?fnekjwafnewkafnewjnfewjaf ewkjaf
-                  </p>
-                  <p className="text-xs max-w-md space-y-1 text-gray-500 list-inside break-all">
-                    2. What is the best way to find a
-                    job?fnekjwafnewkafnewjnfewjaf ewkjaf
-                  </p>
-                </div>
+                {/*<div className="mt-2 flex flex-col gap-1 border border-gray-200 bg-gray-100 rounded-xl p-2">*/}
+                {/*  <h2 className="text-gray-800">AI Notes</h2>*/}
+                {/*  <p className="text-xs max-w-md space-y-1 text-gray-500 list-inside break-all">*/}
+                {/*    1. What is the best way to find a*/}
+                {/*    job?fnekjwafnewkafnewjnfewjaf ewkjaf*/}
+                {/*  </p>*/}
+                {/*  <p className="text-xs max-w-md space-y-1 text-gray-500 list-inside break-all">*/}
+                {/*    2. What is the best way to find a*/}
+                {/*    job?fnekjwafnewkafnewjnfewjaf ewkjaf*/}
+                {/*  </p>*/}
+                {/*</div>*/}
 
                 <div className="border border-slate-400 rounded-2xl h-[30em] overflow-auto p-4">
                   <div>
@@ -271,6 +271,9 @@ function ChatboxModal(props: Props) {
                     </button>
                   )}
                 </form>
+                <h3 className="flex ml-auto text-sm text-gray-500">
+                  Power by Hackathon AI
+                </h3>
               </Dialog.Panel>
             </Transition.Child>
           </div>

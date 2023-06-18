@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import ChatboxModal from '../ChatboxModal';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
+  let path = window.location.pathname;
   // chatbox modal
   const [chatboxModalOpen, setChatboxModalOpen] = useState<boolean>(false);
 
@@ -27,7 +29,7 @@ function Navbar() {
               alt="Flowbite Logo"
             />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-              Flowbite
+              Yonder AI
             </span>
           </a>
           <div className="flex md:order-2">
@@ -132,29 +134,25 @@ function Navbar() {
             </div>
             <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               <li>
-                <a
-                  href="#"
-                  className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+                <Link
+                  to="/"
+                  className={`block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 ${
+                    path === '/' ? 'text-blue-700' : 'text-black '
+                  }`}
                   aria-current="page"
                 >
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                <Link
+                  to="/product"
+                  className={`block py-2 pl-3 pr-4 text-black rounded md:bg-transparent md:p-0 ${
+                    path === '/product' ? 'text-blue-700' : 'text-black '
+                  }`}
                 >
-                  About
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Services
-                </a>
+                  Demo For Nike.com
+                </Link>
               </li>
             </ul>
           </div>
