@@ -82,9 +82,7 @@ function ProductsList() {
   const [productList, setProductList] = useState<any[]>(products);
 
   const getProducts = async () => {
-    const response = await axios.get(
-      'https://hackathon-ai-backend.vercel.app/api/product/'
-    );
+    const response = await axios.get('http://localhost:8080/api/product');
     console.log(response.data.data.data);
     setProductList(response.data.data.data);
   };
