@@ -21,7 +21,7 @@
     "@mui/styled-engine-sc": "^5.11.11",
     "@mui/x-date-pickers": "^6.0.2",
     "animate.css": "^4.1.1",
-    "axios": "^0.21.1",
+    "axios": "^1.6.2",
     "copy-to-clipboard": "^3.3.3",
     "dayjs": "^1.11.7",
     "moment": "^2.29.4",
